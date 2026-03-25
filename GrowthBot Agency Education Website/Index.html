@@ -1,0 +1,731 @@
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Income Bootcamp</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&amp;family=Space+Mono:wght@700&amp;display=swap" rel="stylesheet">
+  <script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: { outfit: ['Outfit', 'sans-serif'], mono: ['Space Mono', 'monospace'] },
+      colors: {
+        brand: { green: '#00E676', dark: '#0a0a0a', card: '#141414', muted: '#1a1a1a', border: '#2a2a2a' }
+      }
+    }
+  }
+}
+</script>
+  <style>
+html, body { height: 100%; margin: 0; }
+* { box-sizing: border-box; }
+.glow-green { box-shadow: 0 0 40px rgba(0,230,118,0.15), 0 0 80px rgba(0,230,118,0.05); }
+.glow-text { text-shadow: 0 0 60px rgba(0,230,118,0.3); }
+@keyframes fadeUp { from { opacity:0; transform:translateY(30px) } to { opacity:1; transform:translateY(0) } }
+@keyframes pulse-glow { 0%,100% { box-shadow: 0 0 20px rgba(0,230,118,0.2) } 50% { box-shadow: 0 0 40px rgba(0,230,118,0.4) } }
+.fade-up { animation: fadeUp .7s ease both }
+.delay-1 { animation-delay:.1s } .delay-2 { animation-delay:.2s } .delay-3 { animation-delay:.3s } .delay-4 { animation-delay:.4s } .delay-5 { animation-delay:.5s }
+.pulse-glow { animation: pulse-glow 2s ease-in-out infinite }
+.grid-bg { background-image: radial-gradient(circle at 1px 1px, rgba(0,230,118,0.03) 1px, transparent 0); background-size: 40px 40px; }
+.cta-btn { background: linear-gradient(135deg, #00E676, #00C853); transition: all .3s; }
+.cta-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,230,118,0.3); }
+.card-hover { transition: all .3s; }
+.card-hover:hover { transform: translateY(-4px); border-color: rgba(0,230,118,0.3); }
+.timeline-line { background: linear-gradient(to bottom, #00E676, rgba(0,230,118,0.1)); }
+.faq-content { max-height:0; overflow:hidden; transition: max-height .3s ease }
+.faq-open .faq-content { max-height:200px }
+.faq-open .faq-chevron { transform: rotate(180deg) }
+.faq-chevron { transition: transform .3s }
+@keyframes countPulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.05)} }
+.count-pulse { animation: countPulse 1s ease-in-out infinite }
+</style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full">
+  <div id="app" class="w-full h-full overflow-auto bg-brand-dark text-white font-outfit grid-bg">
+   <!-- Sticky Nav -->
+   <nav class="sticky top-0 z-50 bg-brand-dark/90 backdrop-blur-md border-b border-brand-border">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+     <div class="flex items-center gap-2">
+      <div class="w-8 h-8 rounded-lg bg-brand-green flex items-center justify-center">
+       <svg width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="#0a0a0a" stroke-width="2.5" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5z" /><path d="M2 17l10 5 10-5" /><path d="M2 12l10 5 10-5" />
+       </svg>
+      </div><span class="font-bold text-lg">AI Bootcamp</span>
+     </div><a href="#pricing" class="cta-btn text-brand-dark font-semibold text-sm px-5 py-2 rounded-full">Enroll Now</a>
+    </div>
+   </nav><!-- Hero -->
+   <section class="relative overflow-hidden">
+    <div class="absolute inset-0 pointer-events-none">
+     <div class="absolute top-20 left-1/4 w-72 h-72 bg-brand-green/5 rounded-full blur-3xl"></div>
+     <div class="absolute bottom-10 right-1/4 w-96 h-96 bg-brand-green/3 rounded-full blur-3xl"></div>
+    </div>
+    <div class="max-w-5xl mx-auto px-4 pt-16 pb-20 text-center relative z-10">
+     <div class="fade-up inline-flex items-center gap-2 bg-brand-green/10 border border-brand-green/20 rounded-full px-4 py-1.5 mb-6">
+      <span class="w-2 h-2 bg-brand-green rounded-full animate-pulse"></span> <span class="text-brand-green text-sm font-medium" id="urgency-tag">Limited Seats Available</span>
+     </div>
+     <h1 class="fade-up delay-1 text-4xl sm:text-5xl md:text-6xl font-black leading-tight mb-5" id="hero-headline">Learn AI Skills &amp;<br><span class="text-brand-green glow-text">Start Earning Online</span><br>
+       in 7 Days</h1>
+     <p class="fade-up delay-2 text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-8" id="hero-subheadline">One-to-One Personalized AI Training | No Coding Required</p>
+     <div class="fade-up delay-3 flex flex-wrap justify-center gap-4 mb-8">
+      <div class="flex items-center gap-2 text-sm"><i data-lucide="user-check" class="w-4 h-4 text-brand-green"></i><span>Personalized Training</span>
+      </div>
+      <div class="flex items-center gap-2 text-sm"><i data-lucide="clock" class="w-4 h-4 text-brand-green"></i><span>7 Days Program</span>
+      </div>
+      <div class="flex items-center gap-2 text-sm"><i data-lucide="trending-up" class="w-4 h-4 text-brand-green"></i><span>Real Income Skills</span>
+      </div>
+     </div>
+     <div class="fade-up delay-4 mb-6">
+      <span class="text-gray-500 text-sm">Starting from</span> <span class="text-3xl font-black text-white ml-2" id="hero-price">₹999</span>
+     </div><a href="#pricing" class="fade-up delay-5 cta-btn pulse-glow inline-flex items-center gap-2 text-brand-dark font-bold text-lg px-10 py-4 rounded-full" id="hero-cta"> Join AI Income Bootcamp <i data-lucide="arrow-right" class="w-5 h-5"></i> </a>
+    </div>
+   </section><!-- Problem -->
+   <section class="py-20 border-t border-brand-border">
+    <div class="max-w-5xl mx-auto px-4">
+     <div class="text-center mb-12">
+      <span class="text-red-400 text-sm font-semibold uppercase tracking-widest">The Problem</span>
+      <h2 class="text-3xl md:text-4xl font-black mt-3">Why Most People <span class="text-red-400">Fail</span> To Earn Online?</h2>
+     </div>
+     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="bg-brand-card border border-brand-border rounded-2xl p-6 card-hover text-center">
+       <div class="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center mx-auto mb-4"><i data-lucide="x-circle" class="w-6 h-6 text-red-400"></i>
+       </div>
+       <h3 class="font-bold mb-1">No High Income Skill</h3>
+       <p class="text-gray-500 text-sm">Stuck in low-paying tasks with no direction</p>
+      </div>
+      <div class="bg-brand-card border border-brand-border rounded-2xl p-6 card-hover text-center">
+       <div class="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center mx-auto mb-4"><i data-lucide="help-circle" class="w-6 h-6 text-red-400"></i>
+       </div>
+       <h3 class="font-bold mb-1">Confusing AI Tools</h3>
+       <p class="text-gray-500 text-sm">Too many tools, no clear path to profit</p>
+      </div>
+      <div class="bg-brand-card border border-brand-border rounded-2xl p-6 card-hover text-center">
+       <div class="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center mx-auto mb-4"><i data-lucide="user-x" class="w-6 h-6 text-red-400"></i>
+       </div>
+       <h3 class="font-bold mb-1">No Client Finding System</h3>
+       <p class="text-gray-500 text-sm">Skills without clients = zero income</p>
+      </div>
+      <div class="bg-brand-card border border-brand-border rounded-2xl p-6 card-hover text-center">
+       <div class="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center mx-auto mb-4"><i data-lucide="map" class="w-6 h-6 text-red-400"></i>
+       </div>
+       <h3 class="font-bold mb-1">No Proper Roadmap</h3>
+       <p class="text-gray-500 text-sm">Wandering without a step-by-step plan</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- Solution -->
+   <section class="py-20 border-t border-brand-border relative">
+    <div class="absolute inset-0 pointer-events-none">
+     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-brand-green/3 rounded-full blur-3xl"></div>
+    </div>
+    <div class="max-w-5xl mx-auto px-4 relative z-10">
+     <div class="text-center mb-12">
+      <span class="text-brand-green text-sm font-semibold uppercase tracking-widest">The Solution</span>
+      <h2 class="text-3xl md:text-4xl font-black mt-3">Introducing <span class="text-brand-green">AI Income Bootcamp</span></h2>
+      <p class="text-gray-400 mt-3 max-w-xl mx-auto">A complete system to learn AI, build skills, find clients, and start earning — all in 7 days.</p>
+     </div>
+     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="bg-brand-card border border-brand-green/20 rounded-2xl p-6 card-hover text-center glow-green">
+       <div class="w-14 h-14 rounded-2xl bg-brand-green/10 flex items-center justify-center mx-auto mb-4"><i data-lucide="cpu" class="w-7 h-7 text-brand-green"></i>
+       </div>
+       <h3 class="font-bold text-lg">AI Tools Mastery</h3>
+       <p class="text-gray-500 text-sm mt-1">Master the top AI tools</p>
+      </div>
+      <div class="bg-brand-card border border-brand-green/20 rounded-2xl p-6 card-hover text-center glow-green">
+       <div class="w-14 h-14 rounded-2xl bg-brand-green/10 flex items-center justify-center mx-auto mb-4"><i data-lucide="pen-tool" class="w-7 h-7 text-brand-green"></i>
+       </div>
+       <h3 class="font-bold text-lg">AI Content Creation</h3>
+       <p class="text-gray-500 text-sm mt-1">Create viral content with AI</p>
+      </div>
+      <div class="bg-brand-card border border-brand-green/20 rounded-2xl p-6 card-hover text-center glow-green">
+       <div class="w-14 h-14 rounded-2xl bg-brand-green/10 flex items-center justify-center mx-auto mb-4"><i data-lucide="zap" class="w-7 h-7 text-brand-green"></i>
+       </div>
+       <h3 class="font-bold text-lg">AI Automation</h3>
+       <p class="text-gray-500 text-sm mt-1">Automate &amp; scale your work</p>
+      </div>
+      <div class="bg-brand-card border border-brand-green/20 rounded-2xl p-6 card-hover text-center glow-green">
+       <div class="w-14 h-14 rounded-2xl bg-brand-green/10 flex items-center justify-center mx-auto mb-4"><i data-lucide="target" class="w-7 h-7 text-brand-green"></i>
+       </div>
+       <h3 class="font-bold text-lg">Client Acquisition</h3>
+       <p class="text-gray-500 text-sm mt-1">Land paying clients fast</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- Modules -->
+   <section class="py-20 border-t border-brand-border">
+    <div class="max-w-5xl mx-auto px-4">
+     <div class="text-center mb-12">
+      <span class="text-brand-green text-sm font-semibold uppercase tracking-widest">Curriculum</span>
+      <h2 class="text-3xl md:text-4xl font-black mt-3">What You'll Learn</h2>
+     </div>
+     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4" id="modules-grid">
+      <div class="bg-brand-card border border-brand-border rounded-2xl p-5 card-hover">
+       <div class="text-brand-green font-mono text-xs mb-3">
+        Module 01
+       </div>
+       <div class="w-10 h-10 rounded-lg bg-brand-green/10 flex items-center justify-center mb-3"><i data-lucide="brain" class="w-5 h-5 text-brand-green"></i>
+       </div>
+       <h3 class="font-bold">AI Foundations</h3>
+       <p class="text-gray-500 text-xs mt-1">Core concepts &amp; thinking</p>
+      </div>
+      <div class="bg-brand-card border border-brand-border rounded-2xl p-5 card-hover">
+       <div class="text-brand-green font-mono text-xs mb-3">
+        Module 02
+       </div>
+       <div class="w-10 h-10 rounded-lg bg-brand-green/10 flex items-center justify-center mb-3"><i data-lucide="wrench" class="w-5 h-5 text-brand-green"></i>
+       </div>
+       <h3 class="font-bold">AI Tools</h3>
+       <p class="text-gray-500 text-xs mt-1">ChatGPT, Canva AI &amp; more</p>
+      </div>
+      <div class="bg-brand-card border border-brand-border rounded-2xl p-5 card-hover">
+       <div class="text-brand-green font-mono text-xs mb-3">
+        Module 03
+       </div>
+       <div class="w-10 h-10 rounded-lg bg-brand-green/10 flex items-center justify-center mb-3"><i data-lucide="image" class="w-5 h-5 text-brand-green"></i>
+       </div>
+       <h3 class="font-bold">Image &amp; Video</h3>
+       <p class="text-gray-500 text-xs mt-1">AI visual content creation</p>
+      </div>
+      <div class="bg-brand-card border border-brand-border rounded-2xl p-5 card-hover">
+       <div class="text-brand-green font-mono text-xs mb-3">
+        Module 04
+       </div>
+       <div class="w-10 h-10 rounded-lg bg-brand-green/10 flex items-center justify-center mb-3"><i data-lucide="repeat" class="w-5 h-5 text-brand-green"></i>
+       </div>
+       <h3 class="font-bold">AI Automation</h3>
+       <p class="text-gray-500 text-xs mt-1">Workflows &amp; systems</p>
+      </div>
+      <div class="bg-brand-card border border-brand-border rounded-2xl p-5 card-hover">
+       <div class="text-brand-green font-mono text-xs mb-3">
+        Module 05
+       </div>
+       <div class="w-10 h-10 rounded-lg bg-brand-green/10 flex items-center justify-center mb-3"><i data-lucide="code" class="w-5 h-5 text-brand-green"></i>
+       </div>
+       <h3 class="font-bold">Vibe Coding</h3>
+       <p class="text-gray-500 text-xs mt-1">Build apps without coding</p>
+      </div>
+      <div class="bg-brand-card border border-brand-border rounded-2xl p-5 card-hover">
+       <div class="text-brand-green font-mono text-xs mb-3">
+        Module 06
+       </div>
+       <div class="w-10 h-10 rounded-lg bg-brand-green/10 flex items-center justify-center mb-3"><i data-lucide="search" class="w-5 h-5 text-brand-green"></i>
+       </div>
+       <h3 class="font-bold">Client Hunting</h3>
+       <p class="text-gray-500 text-xs mt-1">Find &amp; land clients</p>
+      </div>
+      <div class="bg-brand-card border border-brand-border rounded-2xl p-5 card-hover">
+       <div class="text-brand-green font-mono text-xs mb-3">
+        Module 07
+       </div>
+       <div class="w-10 h-10 rounded-lg bg-brand-green/10 flex items-center justify-center mb-3"><i data-lucide="gift" class="w-5 h-5 text-brand-green"></i>
+       </div>
+       <h3 class="font-bold">Offer Creation</h3>
+       <p class="text-gray-500 text-xs mt-1">Irresistible offers</p>
+      </div>
+      <div class="bg-brand-card border border-brand-border rounded-2xl p-5 card-hover">
+       <div class="text-brand-green font-mono text-xs mb-3">
+        Module 08
+       </div>
+       <div class="w-10 h-10 rounded-lg bg-brand-green/10 flex items-center justify-center mb-3"><i data-lucide="badge-check" class="w-5 h-5 text-brand-green"></i>
+       </div>
+       <h3 class="font-bold">Sales Closing</h3>
+       <p class="text-gray-500 text-xs mt-1">Close deals confidently</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- Income Roadmap -->
+   <section class="py-20 border-t border-brand-border">
+    <div class="max-w-4xl mx-auto px-4">
+     <div class="text-center mb-14">
+      <span class="text-brand-green text-sm font-semibold uppercase tracking-widest">Your Journey</span>
+      <h2 class="text-3xl md:text-4xl font-black mt-3">Income Roadmap</h2>
+     </div>
+     <div class="relative">
+      <div class="absolute left-6 md:left-1/2 top-0 bottom-0 w-0.5 timeline-line"></div>
+      <div class="space-y-12">
+       <div class="relative flex flex-col md:flex-row items-start md:items-center gap-4">
+        <div class="md:w-1/2 md:text-right md:pr-10">
+         <div class="bg-brand-card border border-brand-border rounded-2xl p-6 inline-block card-hover">
+          <div class="text-brand-green font-semibold text-sm mb-1">
+           Month 1
+          </div>
+          <div class="text-2xl font-black font-mono">
+           ₹10K – ₹30K
+          </div>
+          <p class="text-gray-500 text-sm mt-1">First clients &amp; initial income</p>
+         </div>
+        </div>
+        <div class="absolute left-3 md:left-1/2 md:-translate-x-1/2 w-6 h-6 bg-brand-green rounded-full border-4 border-brand-dark z-10"></div>
+        <div class="md:w-1/2 md:pl-10"></div>
+       </div>
+       <div class="relative flex flex-col md:flex-row items-start md:items-center gap-4">
+        <div class="md:w-1/2 md:pr-10"></div>
+        <div class="absolute left-3 md:left-1/2 md:-translate-x-1/2 w-6 h-6 bg-brand-green rounded-full border-4 border-brand-dark z-10"></div>
+        <div class="md:w-1/2 md:pl-10">
+         <div class="bg-brand-card border border-brand-border rounded-2xl p-6 inline-block card-hover">
+          <div class="text-brand-green font-semibold text-sm mb-1">
+           Month 3
+          </div>
+          <div class="text-2xl font-black font-mono">
+           ₹50K – ₹1L
+          </div>
+          <p class="text-gray-500 text-sm mt-1">Consistent projects &amp; scaling</p>
+         </div>
+        </div>
+       </div>
+       <div class="relative flex flex-col md:flex-row items-start md:items-center gap-4">
+        <div class="md:w-1/2 md:text-right md:pr-10">
+         <div class="bg-brand-card border border-brand-green/30 rounded-2xl p-6 inline-block card-hover glow-green">
+          <div class="text-brand-green font-semibold text-sm mb-1">
+           Month 6
+          </div>
+          <div class="text-2xl font-black font-mono text-brand-green">
+           ₹1L – ₹3L
+          </div>
+          <p class="text-gray-500 text-sm mt-1">Full-time AI income unlocked</p>
+         </div>
+        </div>
+        <div class="absolute left-3 md:left-1/2 md:-translate-x-1/2 w-8 h-8 bg-brand-green rounded-full border-4 border-brand-dark z-10 pulse-glow"></div>
+        <div class="md:w-1/2 md:pl-10"></div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Bonuses -->
+   <section class="py-20 border-t border-brand-border bg-brand-muted/50">
+    <div class="max-w-5xl mx-auto px-4">
+     <div class="text-center mb-12">
+      <span class="text-yellow-400 text-sm font-semibold uppercase tracking-widest">🎁 Exclusive</span>
+      <h2 class="text-3xl md:text-4xl font-black mt-3">₹10,000+ Worth of <span class="text-yellow-400">Bonuses</span></h2>
+      <p class="text-gray-400 mt-2">Included FREE with your enrollment</p>
+     </div>
+     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div class="bg-brand-card border border-yellow-500/20 rounded-2xl p-6 card-hover text-center">
+       <div class="text-3xl mb-3">
+        📝
+       </div>
+       <h3 class="font-bold">AI Prompt Sheet</h3>
+       <p class="text-gray-500 text-sm mt-1">100+ ready-to-use prompts</p>
+      </div>
+      <div class="bg-brand-card border border-yellow-500/20 rounded-2xl p-6 card-hover text-center">
+       <div class="text-3xl mb-3">
+        🛠️
+       </div>
+       <h3 class="font-bold">AI Tools List</h3>
+       <p class="text-gray-500 text-sm mt-1">Curated top tools directory</p>
+      </div>
+      <div class="bg-brand-card border border-yellow-500/20 rounded-2xl p-6 card-hover text-center">
+       <div class="text-3xl mb-3">
+        🎯
+       </div>
+       <h3 class="font-bold">Client Finding System</h3>
+       <p class="text-gray-500 text-sm mt-1">Proven outreach templates</p>
+      </div>
+      <div class="bg-brand-card border border-yellow-500/20 rounded-2xl p-6 card-hover text-center">
+       <div class="text-3xl mb-3">
+        💬
+       </div>
+       <h3 class="font-bold">Sales Scripts</h3>
+       <p class="text-gray-500 text-sm mt-1">Close deals like a pro</p>
+      </div>
+      <div class="bg-brand-card border border-yellow-500/20 rounded-2xl p-6 card-hover text-center">
+       <div class="text-3xl mb-3">
+        👥
+       </div>
+       <h3 class="font-bold">VIP Community</h3>
+       <p class="text-gray-500 text-sm mt-1">Exclusive members group</p>
+      </div>
+      <div class="bg-brand-card border border-yellow-500/20 rounded-2xl p-6 card-hover text-center">
+       <div class="text-3xl mb-3">
+        🤝
+       </div>
+       <h3 class="font-bold">3 Month Support</h3>
+       <p class="text-gray-500 text-sm mt-1">Direct mentor access</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- Testimonials -->
+   <section class="py-20 border-t border-brand-border">
+    <div class="max-w-5xl mx-auto px-4">
+     <div class="text-center mb-12">
+      <span class="text-brand-green text-sm font-semibold uppercase tracking-widest">Results</span>
+      <h2 class="text-3xl md:text-4xl font-black mt-3">What Our Students Say</h2>
+     </div>
+     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div class="bg-brand-card border border-brand-border rounded-2xl p-6 card-hover">
+       <div class="flex items-center gap-1 text-yellow-400 mb-3">
+        ★★★★★
+       </div>
+       <p class="text-gray-300 text-sm mb-4">"Started from zero. Now making ₹25K/month with AI content writing. This bootcamp changed my life!"</p>
+       <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-full bg-brand-green/20 flex items-center justify-center text-brand-green font-bold text-sm">
+         RP
+        </div>
+        <div>
+         <div class="font-semibold text-sm">
+          Riya Patel
+         </div>
+         <div class="text-brand-green text-xs font-bold">
+          ₹25K/month
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="bg-brand-card border border-brand-border rounded-2xl p-6 card-hover">
+       <div class="flex items-center gap-1 text-yellow-400 mb-3">
+        ★★★★★
+       </div>
+       <p class="text-gray-300 text-sm mb-4">"Quit my 9-5 after month 3. AI automation skills got me clients from LinkedIn. Best investment!"</p>
+       <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 font-bold text-sm">
+         AK
+        </div>
+        <div>
+         <div class="font-semibold text-sm">
+          Arjun Kumar
+         </div>
+         <div class="text-brand-green text-xs font-bold">
+          ₹80K/month
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="bg-brand-card border border-brand-border rounded-2xl p-6 card-hover">
+       <div class="flex items-center gap-1 text-yellow-400 mb-3">
+        ★★★★★
+       </div>
+       <p class="text-gray-300 text-sm mb-4">"As a housewife, I never imagined earning online. Now I make ₹40K/month from home!"</p>
+       <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-400 font-bold text-sm">
+         SM
+        </div>
+        <div>
+         <div class="font-semibold text-sm">
+          Sneha Mishra
+         </div>
+         <div class="text-brand-green text-xs font-bold">
+          ₹40K/month
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="bg-brand-card border border-brand-border rounded-2xl p-6 card-hover">
+       <div class="flex items-center gap-1 text-yellow-400 mb-3">
+        ★★★★★
+       </div>
+       <p class="text-gray-300 text-sm mb-4">"The client hunting module alone is worth 10x the price. Landing ₹1.2L/month now."</p>
+       <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-full bg-orange-500/20 flex items-center justify-center text-orange-400 font-bold text-sm">
+         VR
+        </div>
+        <div>
+         <div class="font-semibold text-sm">
+          Vikram Reddy
+         </div>
+         <div class="text-brand-green text-xs font-bold">
+          ₹1.2L/month
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="bg-brand-card border border-brand-border rounded-2xl p-6 card-hover">
+       <div class="flex items-center gap-1 text-yellow-400 mb-3">
+        ★★★★★
+       </div>
+       <p class="text-gray-300 text-sm mb-4">"I'm a college student and already earning ₹15K part-time. The AI prompt sheet is gold!"</p>
+       <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-full bg-pink-500/20 flex items-center justify-center text-pink-400 font-bold text-sm">
+         ND
+        </div>
+        <div>
+         <div class="font-semibold text-sm">
+          Neha Desai
+         </div>
+         <div class="text-brand-green text-xs font-bold">
+          ₹15K/month
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="bg-brand-card border border-brand-border rounded-2xl p-6 card-hover">
+       <div class="flex items-center gap-1 text-yellow-400 mb-3">
+        ★★★★★
+       </div>
+       <p class="text-gray-300 text-sm mb-4">"From freelancing struggles to consistent ₹60K. The sales closing module is a game changer."</p>
+       <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-full bg-teal-500/20 flex items-center justify-center text-teal-400 font-bold text-sm">
+         RS
+        </div>
+        <div>
+         <div class="font-semibold text-sm">
+          Rahul Sharma
+         </div>
+         <div class="text-brand-green text-xs font-bold">
+          ₹60K/month
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Who Should Join -->
+   <section class="py-20 border-t border-brand-border bg-brand-muted/50">
+    <div class="max-w-4xl mx-auto px-4">
+     <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-black">Who Should <span class="text-brand-green">Join?</span></h2>
+     </div>
+     <div class="flex flex-wrap justify-center gap-4">
+      <div class="bg-brand-card border border-brand-border rounded-2xl px-6 py-4 flex items-center gap-3 card-hover"><i data-lucide="graduation-cap" class="w-5 h-5 text-brand-green"></i><span class="font-semibold">Students</span>
+      </div>
+      <div class="bg-brand-card border border-brand-border rounded-2xl px-6 py-4 flex items-center gap-3 card-hover"><i data-lucide="briefcase" class="w-5 h-5 text-brand-green"></i><span class="font-semibold">Freelancers</span>
+      </div>
+      <div class="bg-brand-card border border-brand-border rounded-2xl px-6 py-4 flex items-center gap-3 card-hover"><i data-lucide="home" class="w-5 h-5 text-brand-green"></i><span class="font-semibold">Housewives</span>
+      </div>
+      <div class="bg-brand-card border border-brand-border rounded-2xl px-6 py-4 flex items-center gap-3 card-hover"><i data-lucide="search" class="w-5 h-5 text-brand-green"></i><span class="font-semibold">Job Seekers</span>
+      </div>
+      <div class="bg-brand-card border border-brand-border rounded-2xl px-6 py-4 flex items-center gap-3 card-hover"><i data-lucide="rocket" class="w-5 h-5 text-brand-green"></i><span class="font-semibold">Side Hustlers</span>
+      </div>
+     </div>
+    </div>
+   </section><!-- Pricing -->
+   <section class="py-20 border-t border-brand-border" id="pricing">
+    <div class="max-w-4xl mx-auto px-4">
+     <div class="text-center mb-12">
+      <span class="text-brand-green text-sm font-semibold uppercase tracking-widest">Pricing</span>
+      <h2 class="text-3xl md:text-4xl font-black mt-3">Choose Your Plan</h2>
+     </div>
+     <div class="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+      <!-- Basic -->
+      <div class="bg-brand-card border border-brand-border rounded-3xl p-8 card-hover">
+       <h3 class="text-xl font-bold mb-1">Basic Plan</h3>
+       <p class="text-gray-500 text-sm mb-6">Perfect to get started</p>
+       <div class="mb-6"><span class="text-4xl font-black font-mono">₹999</span><span class="text-gray-500 ml-1">/one-time</span>
+       </div>
+       <ul class="space-y-3 mb-8 text-sm">
+        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-green"></i>All 8 Modules</li>
+        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-green"></i>AI Prompt Sheet</li>
+        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-green"></i>AI Tools List</li>
+        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-green"></i>Community Access</li>
+        <li class="flex items-center gap-2 text-gray-600"><i data-lucide="x" class="w-4 h-4 text-gray-600"></i>1-on-1 Support</li>
+        <li class="flex items-center gap-2 text-gray-600"><i data-lucide="x" class="w-4 h-4 text-gray-600"></i>Sales Scripts</li>
+       </ul><a href="#pricing" class="block text-center border-2 border-brand-green text-brand-green font-bold py-3 rounded-full hover:bg-brand-green/10 transition-colors">Get Basic</a>
+      </div><!-- Premium -->
+      <div class="bg-brand-card border-2 border-brand-green rounded-3xl p-8 card-hover relative glow-green">
+       <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-brand-green text-brand-dark text-xs font-bold px-4 py-1 rounded-full">
+        MOST POPULAR
+       </div>
+       <h3 class="text-xl font-bold mb-1">Premium Plan</h3>
+       <p class="text-gray-500 text-sm mb-6">Complete AI income system</p>
+       <div class="mb-6"><span class="text-4xl font-black font-mono text-brand-green">₹1499</span><span class="text-gray-500 ml-1">/one-time</span>
+       </div>
+       <ul class="space-y-3 mb-8 text-sm">
+        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-green"></i>All 8 Modules</li>
+        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-green"></i>All Bonuses (₹10,000+)</li>
+        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-green"></i>1-on-1 Personalized Training</li>
+        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-green"></i>Client Finding System</li>
+        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-green"></i>Sales Scripts &amp; Templates</li>
+        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-green"></i>3 Month Mentor Support</li>
+       </ul><a href="#pricing" class="cta-btn block text-center text-brand-dark font-bold py-3 rounded-full">Get Premium</a>
+      </div>
+     </div>
+    </div>
+   </section><!-- Urgency -->
+   <section class="py-16 border-t border-brand-border bg-brand-muted/50">
+    <div class="max-w-3xl mx-auto px-4 text-center">
+     <div class="inline-flex items-center gap-2 bg-red-500/10 border border-red-500/20 rounded-full px-4 py-1.5 mb-6">
+      <span class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span> <span class="text-red-400 text-sm font-medium">Seats Filling Fast</span>
+     </div>
+     <h2 class="text-3xl md:text-4xl font-black mb-8" id="urgency-text">Only <span class="text-brand-green">200</span> Seats Available</h2>
+     <div class="flex justify-center gap-4 mb-8" id="countdown">
+      <div class="bg-brand-card border border-brand-border rounded-2xl p-4 w-20 text-center count-pulse">
+       <div class="text-2xl font-black font-mono text-brand-green" id="cd-hours">
+        23
+       </div>
+       <div class="text-gray-500 text-xs mt-1">
+        Hours
+       </div>
+      </div>
+      <div class="bg-brand-card border border-brand-border rounded-2xl p-4 w-20 text-center count-pulse">
+       <div class="text-2xl font-black font-mono text-brand-green" id="cd-mins">
+        59
+       </div>
+       <div class="text-gray-500 text-xs mt-1">
+        Minutes
+       </div>
+      </div>
+      <div class="bg-brand-card border border-brand-border rounded-2xl p-4 w-20 text-center count-pulse">
+       <div class="text-2xl font-black font-mono text-brand-green" id="cd-secs">
+        59
+       </div>
+       <div class="text-gray-500 text-xs mt-1">
+        Seconds
+       </div>
+      </div>
+     </div><a href="#pricing" class="cta-btn pulse-glow inline-flex items-center gap-2 text-brand-dark font-bold text-lg px-10 py-4 rounded-full"> Claim Your Seat Now <i data-lucide="arrow-right" class="w-5 h-5"></i> </a>
+    </div>
+   </section><!-- FAQ -->
+   <section class="py-20 border-t border-brand-border">
+    <div class="max-w-3xl mx-auto px-4">
+     <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-black">Frequently Asked Questions</h2>
+     </div>
+     <div class="space-y-3" id="faq-container">
+      <div class="faq-item bg-brand-card border border-brand-border rounded-2xl overflow-hidden cursor-pointer" onclick="this.classList.toggle('faq-open')">
+       <div class="flex items-center justify-between p-5"><span class="font-semibold">Do I need coding experience?</span><i data-lucide="chevron-down" class="w-5 h-5 text-gray-400 faq-chevron"></i>
+       </div>
+       <div class="faq-content px-5 pb-5">
+        <p class="text-gray-400 text-sm">Absolutely not! This bootcamp is designed for complete beginners. All AI tools we teach require zero coding knowledge.</p>
+       </div>
+      </div>
+      <div class="faq-item bg-brand-card border border-brand-border rounded-2xl overflow-hidden cursor-pointer" onclick="this.classList.toggle('faq-open')">
+       <div class="flex items-center justify-between p-5"><span class="font-semibold">How is the training delivered?</span><i data-lucide="chevron-down" class="w-5 h-5 text-gray-400 faq-chevron"></i>
+       </div>
+       <div class="faq-content px-5 pb-5">
+        <p class="text-gray-400 text-sm">You'll get 1-on-1 personalized training sessions over video call, plus recorded modules you can access anytime.</p>
+       </div>
+      </div>
+      <div class="faq-item bg-brand-card border border-brand-border rounded-2xl overflow-hidden cursor-pointer" onclick="this.classList.toggle('faq-open')">
+       <div class="flex items-center justify-between p-5"><span class="font-semibold">Can I really earn in 7 days?</span><i data-lucide="chevron-down" class="w-5 h-5 text-gray-400 faq-chevron"></i>
+       </div>
+       <div class="faq-content px-5 pb-5">
+        <p class="text-gray-400 text-sm">Yes! Our students have landed their first paying clients within the first week by following our client hunting and offer creation system.</p>
+       </div>
+      </div>
+      <div class="faq-item bg-brand-card border border-brand-border rounded-2xl overflow-hidden cursor-pointer" onclick="this.classList.toggle('faq-open')">
+       <div class="flex items-center justify-between p-5"><span class="font-semibold">Is there a refund policy?</span><i data-lucide="chevron-down" class="w-5 h-5 text-gray-400 faq-chevron"></i>
+       </div>
+       <div class="faq-content px-5 pb-5">
+        <p class="text-gray-400 text-sm">We offer a 7-day money-back guarantee. If you don't find value, we'll refund you — no questions asked.</p>
+       </div>
+      </div>
+      <div class="faq-item bg-brand-card border border-brand-border rounded-2xl overflow-hidden cursor-pointer" onclick="this.classList.toggle('faq-open')">
+       <div class="flex items-center justify-between p-5"><span class="font-semibold">What AI tools will I learn?</span><i data-lucide="chevron-down" class="w-5 h-5 text-gray-400 faq-chevron"></i>
+       </div>
+       <div class="faq-content px-5 pb-5">
+        <p class="text-gray-400 text-sm">ChatGPT, Canva AI, MidJourney, automation tools, AI video creation tools, and many more cutting-edge AI platforms.</p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Final CTA -->
+   <section class="py-20 border-t border-brand-border relative overflow-hidden">
+    <div class="absolute inset-0 pointer-events-none">
+     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-green/5 rounded-full blur-3xl"></div>
+    </div>
+    <div class="max-w-3xl mx-auto px-4 text-center relative z-10">
+     <h2 class="text-3xl md:text-5xl font-black mb-4">Start Your <span class="text-brand-green glow-text">AI Income</span> Journey Today</h2>
+     <p class="text-gray-400 text-lg mb-8">Don't wait. Every day without AI skills is money left on the table.</p><a href="#pricing" class="cta-btn pulse-glow inline-flex items-center gap-2 text-brand-dark font-bold text-xl px-12 py-5 rounded-full mb-6"> Enroll Now <i data-lucide="arrow-right" class="w-6 h-6"></i> </a>
+     <div class="mt-6">
+      <a id="whatsapp-link" href="https://wa.me/918442088979" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-brand-green hover:underline">
+       <svg width="20" height="20" viewbox="0 0 24 24" fill="#00E676"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+       </svg><span class="font-semibold" id="whatsapp-display">Chat on WhatsApp: +91 8442088979</span> </a>
+     </div>
+    </div>
+   </section><!-- Footer -->
+   <footer class="py-8 border-t border-brand-border text-center">
+    <p class="text-gray-600 text-sm">© 2026 AI Income Bootcamp. All rights reserved.</p>
+   </footer>
+  </div>
+  <script>
+// Countdown timer - 24h from page load
+let totalSecs = 24*3600;
+function updateCountdown(){
+  if(totalSecs<=0) return;
+  totalSecs--;
+  const h=Math.floor(totalSecs/3600), m=Math.floor((totalSecs%3600)/60), s=totalSecs%60;
+  document.getElementById('cd-hours').textContent=String(h).padStart(2,'0');
+  document.getElementById('cd-mins').textContent=String(m).padStart(2,'0');
+  document.getElementById('cd-secs').textContent=String(s).padStart(2,'0');
+}
+setInterval(updateCountdown,1000);
+
+// Element SDK
+const defaultConfig = {
+  hero_headline: "Learn AI Skills & Start Earning Online in 7 Days",
+  hero_subheadline: "One-to-One Personalized AI Training | No Coding Required",
+  hero_price: "₹999",
+  hero_cta: "Join AI Income Bootcamp",
+  urgency_seats: "Only 200 Seats Available",
+  whatsapp_number: "+91 8442088979",
+  background_color: "#0a0a0a",
+  surface_color: "#141414",
+  text_color: "#ffffff",
+  accent_color: "#00E676",
+  muted_color: "#6b7280",
+  font_family: "Outfit",
+  font_size: 16
+};
+
+function applyConfig(config) {
+  const c = {...defaultConfig, ...config};
+
+  // Text
+  const hl = document.getElementById('hero-headline');
+  if(hl) hl.innerHTML = c.hero_headline.replace(/Start Earning Online/g, '<span class="text-brand-green glow-text">Start Earning Online</span>');
+  const sub = document.getElementById('hero-subheadline');
+  if(sub) sub.textContent = c.hero_subheadline;
+  const price = document.getElementById('hero-price');
+  if(price) price.textContent = c.hero_price;
+  const cta = document.getElementById('hero-cta');
+  if(cta) { cta.childNodes[0].textContent = c.hero_cta + ' '; }
+  const urg = document.getElementById('urgency-text');
+  if(urg) urg.innerHTML = c.urgency_seats.replace(/(\d+)/, '<span class="text-brand-green">$1</span>');
+  const waLink = document.getElementById('whatsapp-link');
+  const waDisplay = document.getElementById('whatsapp-display');
+  if(waLink) waLink.href = 'https://wa.me/' + c.whatsapp_number.replace(/[^0-9]/g,'');
+  if(waDisplay) waDisplay.textContent = 'Chat on WhatsApp: ' + c.whatsapp_number;
+
+  // Colors
+  document.documentElement.style.setProperty('--bg', c.background_color);
+  document.body.parentElement.querySelector('#app').style.backgroundColor = c.background_color;
+
+  // Font
+  const font = c.font_family || defaultConfig.font_family;
+  document.body.style.fontFamily = `${font}, Outfit, sans-serif`;
+
+  // Font size
+  const base = c.font_size || defaultConfig.font_size;
+  document.body.style.fontSize = base + 'px';
+}
+
+if(window.elementSdk) {
+  window.elementSdk.init({
+    defaultConfig,
+    onConfigChange: async (config) => applyConfig(config),
+    mapToCapabilities: (config) => {
+      const c = {...defaultConfig, ...config};
+      return {
+        recolorables: [
+          { get:()=>c.background_color, set:(v)=>{config.background_color=v; window.elementSdk.setConfig({background_color:v})} },
+          { get:()=>c.surface_color, set:(v)=>{config.surface_color=v; window.elementSdk.setConfig({surface_color:v})} },
+          { get:()=>c.text_color, set:(v)=>{config.text_color=v; window.elementSdk.setConfig({text_color:v})} },
+          { get:()=>c.accent_color, set:(v)=>{config.accent_color=v; window.elementSdk.setConfig({accent_color:v})} },
+          { get:()=>c.muted_color, set:(v)=>{config.muted_color=v; window.elementSdk.setConfig({muted_color:v})} }
+        ],
+        borderables: [],
+        fontEditable: { get:()=>c.font_family, set:(v)=>{config.font_family=v; window.elementSdk.setConfig({font_family:v})} },
+        fontSizeable: { get:()=>c.font_size, set:(v)=>{config.font_size=v; window.elementSdk.setConfig({font_size:v})} }
+      };
+    },
+    mapToEditPanelValues: (config) => {
+      const c = {...defaultConfig, ...config};
+      return new Map([
+        ["hero_headline", c.hero_headline],
+        ["hero_subheadline", c.hero_subheadline],
+        ["hero_price", c.hero_price],
+        ["hero_cta", c.hero_cta],
+        ["urgency_seats", c.urgency_seats],
+        ["whatsapp_number", c.whatsapp_number]
+      ]);
+    }
+  });
+}
+
+lucide.createIcons();
+</script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9e1ccd0751abd988',t:'MTc3NDQzMDAyMC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
